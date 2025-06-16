@@ -15,7 +15,6 @@ public class BudgetContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // User configuration
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -26,7 +25,6 @@ public class BudgetContext : DbContext
             entity.Property(e => e.PasswordHash).IsRequired();
         });
 
-        // Category configuration
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -38,7 +36,6 @@ public class BudgetContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Transaction configuration
         modelBuilder.Entity<Transaction>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -54,31 +51,28 @@ public class BudgetContext : DbContext
                   .OnDelete(DeleteBehavior.SetNull);
         });
 
-        // Seed data
         SeedData(modelBuilder);
     }
 
     private static void SeedData(ModelBuilder modelBuilder)
     {
-        // Seed admin user
         modelBuilder.Entity<User>().HasData(
             new User
             {
                 Id = 1,
                 Username = "admin",
                 Email = "admin@budgetplanner.com",
-                PasswordHash = "$2a$11$8Z.6n0CzGJlK0k3Y1V5Kk.ZWz8X1JQO9O5K6l4Mx7cNzGZ8k1F2Hm", // Admin123!
+                PasswordHash = "$2a$11$8Z.6n0CzGJlK0k3Y1V5Kk.ZWz8X1JQO9O5K6l4Mx7cNzGZ8k1F2Hm",
                 IsAdmin = true,
                 CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             }
         );
 
-        // Seed default categories
         modelBuilder.Entity<Category>().HasData(
-            new Category { Id = 1, Name = "Зарплата", Color = "#28a745", Type = TransactionType.Income, UserId = 1 },
-            new Category { Id = 2, Name = "Продукты", Color = "#dc3545", Type = TransactionType.Expense, UserId = 1 },
-            new Category { Id = 3, Name = "Транспорт", Color = "#ffc107", Type = TransactionType.Expense, UserId = 1 },
-            new Category { Id = 4, Name = "Развлечения", Color = "#17a2b8", Type = TransactionType.Expense, UserId = 1 }
+            new Category { Id = 1, Name = "Salary", Color = "#28a745", Type = TransactionType.Income, UserId = 1 },
+            new Category { Id = 2, Name = "Groceries", Color = "#dc3545", Type = TransactionType.Expense, UserId = 1 },
+            new Category { Id = 3, Name = "Transport", Color = "#ffc107", Type = TransactionType.Expense, UserId = 1 },
+            new Category { Id = 4, Name = "Entertainment", Color = "#17a2b8", Type = TransactionType.Expense, UserId = 1 }
         );
     }
 } 
