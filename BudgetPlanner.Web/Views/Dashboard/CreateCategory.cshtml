@@ -1,0 +1,150 @@
+@model BudgetPlanner.Web.Models.CreateCategoryViewModel
+@{
+    ViewData["Title"] = ViewBag.IsEdit == true ? "Edit Category" : "Add Category";
+    var isEdit = ViewBag.IsEdit == true;
+    var categoryId = ViewBag.CategoryId ?? 0;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">
+                    <i class="fas @(isEdit ? "fa-edit" : "fa-plus") me-2"></i>@(isEdit ? "Edit Category" : "Add New Category")
+                </h3>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model?.ErrorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>@Model.ErrorMessage
+                    </div>
+                }
+
+                <form asp-action="@(isEdit ? "EditCategory" : "CreateCategory")" asp-route-id="@categoryId" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">
+                            <i class="fas fa-tag me-2"></i>Name
+                        </label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Food, Entertainment" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Type" class="form-label">
+                            <i class="fas fa-exchange-alt me-2"></i>Category Type
+                        </label>
+                        <select asp-for="Type" class="form-select" required>
+                            <option value="">Select type</option>
+                            <option value="@((int)TransactionType.Income)">Income</option>
+                            <option value="@((int)TransactionType.Expense)">Expense</option>
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Color" class="form-label">
+                            <i class="fas fa-palette me-2"></i>Color
+                        </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input asp-for="Color" type="color" class="form-control form-control-color" style="height: 45px;" />
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="Color" type="text" class="form-control" placeholder="#007bff" pattern="^#[0-9A-Fa-f]{6}$" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                        <small class="form-text text-muted">Choose a color to identify this category</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Preview</label>
+                        <div class="p-3 border rounded" style="background-color: #f8f9fa;">
+                            <div class="d-flex align-items-center">
+                                <span id="colorPreview" class="badge me-2" style="background-color: @Model.Color; width: 20px; height: 20px; border-radius: 50%; display: inline-block;"></span>
+                                <span id="namePreview">@(string.IsNullOrEmpty(Model.Name) ? "Category name" : Model.Name)</span>
+                                <span id="typePreview" class="badge ms-2">
+                                    @if (Model.Type == TransactionType.Income)
+                                    {
+                                        <span class="badge bg-success"><i class="fas fa-arrow-up me-1"></i>Income</span>
+                                    }
+                                    else if (Model.Type == TransactionType.Expense)
+                                    {
+                                        <span class="badge bg-danger"><i class="fas fa-arrow-down me-1"></i>Expense</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Select type</span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Categories" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>@(isEdit ? "Update Category" : "Create Category")
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Синхронизация цветовых полей
+            $('input[type="color"]').on('input', function() {
+                var color = $(this).val();
+                $('input[type="text"][name="Color"]').val(color);
+                updatePreview();
+            });
+
+            $('input[type="text"][name="Color"]').on('input', function() {
+                var color = $(this).val();
+                if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
+                    $('input[type="color"]').val(color);
+                }
+                updatePreview();
+            });
+
+            // Обновление превью при изменении имени
+            $('input[name="Name"]').on('input', function() {
+                updatePreview();
+            });
+
+            // Обновление превью при изменении типа
+            $('select[name="Type"]').on('change', function() {
+                updatePreview();
+            });
+
+            function updatePreview() {
+                var name = $('input[name="Name"]').val() || 'Category name';
+                var color = $('input[name="Color"]').val() || '#007bff';
+                var type = $('select[name="Type"]').val();
+
+                $('#namePreview').text(name);
+                $('#colorPreview').css('background-color', color);
+
+                var typeHtml = '';
+                if (type == '1') {
+                    typeHtml = '<span class="badge bg-success"><i class="fas fa-arrow-up me-1"></i>Income</span>';
+                } else if (type == '2') {
+                    typeHtml = '<span class="badge bg-danger"><i class="fas fa-arrow-down me-1"></i>Expense</span>';
+                } else {
+                    typeHtml = '<span class="badge bg-secondary">Select type</span>';
+                }
+                $('#typePreview').html(typeHtml);
+            }
+
+            // Инициализация превью
+            updatePreview();
+        });
+    </script>
+} 

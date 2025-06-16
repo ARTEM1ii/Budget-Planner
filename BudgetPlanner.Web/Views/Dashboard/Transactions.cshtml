@@ -1,0 +1,144 @@
+@model List<BudgetPlanner.Web.Models.TransactionViewModel>
+@{
+    ViewData["Title"] = "All Transactions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2 mb-0">
+        <i class="fas fa-exchange-alt me-2"></i>All Transactions
+    </h1>
+    <a asp-action="CreateTransaction" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Add Transaction
+    </a>
+</div>
+
+@if (Model?.Any() == true)
+{
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Type</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in Model.OrderByDescending(t => t.Date))
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <div class="fw-medium">@transaction.Date.ToString("dd.MM.yyyy")</div>
+                                            <small class="text-muted">@transaction.Date.ToString("HH:mm")</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-medium">@transaction.Description</div>
+                                </td>
+                                <td>
+                                    @if (transaction.Category != null)
+                                    {
+                                        <span class="badge" style="background-color: @transaction.Category.Color; color: white;">
+                                            @transaction.Category.Name
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No category</span>
+                                    }
+                                </td>
+                                <td>
+                                                                            @if (transaction.Type == TransactionType.Income)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-arrow-up me-1"></i>Income
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-arrow-down me-1"></i>Expense
+                                        </span>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <span class="fw-bold @(transaction.Type == TransactionType.Income ? "text-success" : "text-danger")">
+                                        @(transaction.Type == TransactionType.Income ? "+" : "-")€@transaction.Amount.ToString("N0")
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a asp-action="EditTransaction" asp-route-id="@transaction.Id" 
+                                           class="btn btn-outline-primary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form asp-action="DeleteTransaction" asp-route-id="@transaction.Id" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this transaction?')">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                                        <h4>Total Income</h4>
+                    <h2>€@Model.Where(t => t.Type == TransactionType.Income).Sum(t => t.Amount).ToString("N0")</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body text-center">
+                                        <h4>Total Expenses</h4>
+                    <h2>€@Model.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount).ToString("N0")</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h4>Balance</h4>
+                    @{
+                                                 var balance = Model.Where(t => t.Type == TransactionType.Income).Sum(t => t.Amount) -
+                                      Model.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount);
+                    }
+                    <h2>€@balance.ToString("N0")</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-inbox fa-4x text-muted mb-4"></i>
+            <h3 class="text-muted">No transactions</h3>
+            <p class="text-muted mb-4">Start managing your budget by adding your first transaction</p>
+            <a asp-action="CreateTransaction" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus me-2"></i>Add first transaction
+            </a>
+        </div>
+    </div>
+}
+
+ 

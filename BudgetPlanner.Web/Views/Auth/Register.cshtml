@@ -1,0 +1,130 @@
+@model BudgetPlanner.Web.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Budget Planner</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body {
+            background: #fff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .register-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .register-icon {
+            font-size: 3rem;
+            color: #0b5ed7;
+            margin-bottom: 15px;
+        }
+        .btn-register {
+            background: #0b5ed7;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-control {
+            border-radius: 50px;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            font-size: 16px;
+        }
+        .form-control:focus {
+            border-color: #0b5ed7;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-center min-vh-100 py-4">
+        <div class="register-card">
+            <div class="register-header">
+                <div class="register-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2 class="mb-0">Register</h2>
+                <p class="text-muted mt-2">Create a new account</p>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@Model.ErrorMessage
+                </div>
+            }
+
+            <form asp-action="Register" method="post">
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">
+                        <i class="fas fa-user me-2"></i>Username
+                    </label>
+                    <input asp-for="Username" class="form-control" placeholder="Enter username" required />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">
+                        <i class="fas fa-envelope me-2"></i>Email
+                    </label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">
+                        <i class="fas fa-lock me-2"></i>Password
+                    </label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <small class="form-text text-muted">Minimum 6 characters</small>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="ConfirmPassword" class="form-label">
+                        <i class="fas fa-lock me-2"></i>Confirm Password
+                    </label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Repeat password" required />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-register">
+                        <i class="fas fa-user-plus me-2"></i>Register
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <p class="mb-0">
+                        Already have an account? 
+                        <a asp-action="Login" class="text-decoration-none fw-bold">Sign In</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

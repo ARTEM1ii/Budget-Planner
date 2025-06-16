@@ -1,0 +1,202 @@
+@model BudgetPlanner.Web.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h2 mb-3">
+                <i class="fas fa-chart-line me-2"></i>Dashboard
+            </h1>
+        </div>
+    </div>
+
+    <!-- Статистические карточки -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">Income</h4>
+                            <h2 class="mb-0">€@Model.TotalIncome.ToString("N0")</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-arrow-up fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">Expenses</h4>
+                            <h2 class="mb-0">€@Model.TotalExpenses.ToString("N0")</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-arrow-down fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card @(Model.Balance >= 0 ? "bg-primary" : "bg-warning") text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">Balance</h4>
+                            <h2 class="mb-0">€@Model.Balance.ToString("N0")</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-wallet fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Последние транзакции -->
+        <div class="col-md-8 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clock me-2"></i>Recent Transactions
+                    </h5>
+                    <a asp-action="Transactions" class="btn btn-outline-primary btn-sm">
+                        All Transactions
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentTransactions?.Any() == true)
+                    {
+                        @foreach (var transaction in Model.RecentTransactions)
+                        {
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                                                                 @if (transaction.Type == TransactionType.Income)
+                                        {
+                                            <i class="fas fa-arrow-up text-success"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-arrow-down text-danger"></i>
+                                        }
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">@transaction.Description</div>
+                                        <small class="text-muted">
+                                            @transaction.Date.ToString("dd.MM.yyyy")
+                                            @if (transaction.Category != null)
+                                            {
+                                                <span class="badge" style="background-color: @transaction.Category.Color; color: white;">
+                                                    @transaction.Category.Name
+                                                </span>
+                                            }
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                                                         <span class="fw-bold @(transaction.Type == TransactionType.Income ? "text-success" : "text-danger")">
+                                         @(transaction.Type == TransactionType.Income ? "+" : "-")€@transaction.Amount.ToString("N0")
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No transactions</p>
+                            <a asp-action="CreateTransaction" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Add first transaction
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Категории -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-tags me-2"></i>Categories
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Categories?.Any() == true)
+                    {
+                        @foreach (var category in Model.Categories)
+                        {
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2">
+                                        <span class="badge" style="background-color: @category.Color; width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span>
+                                    </div>
+                                    <span>@category.Name</span>
+                                </div>
+                                <div>
+                                                                         <span class="fw-bold @(category.Type == TransactionType.Income ? "text-success" : "text-danger")">
+                                                                                 €@category.Amount.ToString("N0")
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-3">
+                            <i class="fas fa-tags fa-2x text-muted mb-2"></i>
+                            <p class="text-muted mb-0">No category data</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Быстрые действия -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a asp-action="CreateTransaction" class="btn btn-success w-100">
+                                <i class="fas fa-plus me-2"></i>Add Transaction
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a asp-action="Transactions" class="btn btn-info w-100">
+                                <i class="fas fa-list me-2"></i>All Transactions
+                            </a>
+                        </div>
+                  
+                        <div class="col-md-3 mb-2">
+                            <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-danger w-100">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
