@@ -39,7 +39,7 @@ public class AuthController : Controller
             return RedirectToAction("Index", "Dashboard");
         }
 
-        model.ErrorMessage = "Неверное имя пользователя или пароль";
+        model.ErrorMessage = "Invalid username or password";
         return View(model);
     }
 
@@ -64,7 +64,7 @@ public class AuthController : Controller
 
         if (model.Password != model.ConfirmPassword)
         {
-            model.ErrorMessage = "Пароли не совпадают";
+            model.ErrorMessage = "Passwords do not match";
             return View(model);
         }
 
@@ -75,7 +75,7 @@ public class AuthController : Controller
             return RedirectToAction("Index", "Dashboard");
         }
 
-        model.ErrorMessage = "Пользователь с таким именем или email уже существует";
+        model.ErrorMessage = "User with this username or email already exists";
         return View(model);
     }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LrK+NrfYir4=",
+  "dgSpecHash": "m6tpKBpPcrg=",
   "success": true,
-  "projectFilePath": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.API/BudgetPlanner.API.csproj",
+  "projectFilePath": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.API/BudgetPlanner.API.csproj",
   "expectedPackageFiles": [
     "/Users/parvizsalomatshoev/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/parvizsalomatshoev/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",

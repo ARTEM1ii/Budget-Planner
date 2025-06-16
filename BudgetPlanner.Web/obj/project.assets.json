@@ -60,11 +60,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.Web/BudgetPlanner.Web.csproj",
+      "projectUniqueName": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.Web/BudgetPlanner.Web.csproj",
       "projectName": "BudgetPlanner.Web",
-      "projectPath": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.Web/BudgetPlanner.Web.csproj",
+      "projectPath": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.Web/BudgetPlanner.Web.csproj",
       "packagesPath": "/Users/parvizsalomatshoev/.nuget/packages/",
-      "outputPath": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.Web/obj/",
+      "outputPath": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.Web/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/parvizsalomatshoev/.nuget/NuGet/NuGet.Config"

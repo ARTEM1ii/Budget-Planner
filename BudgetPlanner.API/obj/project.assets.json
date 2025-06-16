@@ -3709,11 +3709,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.API/BudgetPlanner.API.csproj",
+      "projectUniqueName": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.API/BudgetPlanner.API.csproj",
       "projectName": "BudgetPlanner.API",
-      "projectPath": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.API/BudgetPlanner.API.csproj",
+      "projectPath": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.API/BudgetPlanner.API.csproj",
       "packagesPath": "/Users/parvizsalomatshoev/.nuget/packages/",
-      "outputPath": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.API/obj/",
+      "outputPath": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/parvizsalomatshoev/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "umZ3z3luKFk=",
+  "dgSpecHash": "9wX09Vz/kXo=",
   "success": true,
-  "projectFilePath": "/Users/parvizsalomatshoev/Project/wsiz-net/BudgetPlanner.Web/BudgetPlanner.Web.csproj",
+  "projectFilePath": "/Users/parvizsalomatshoev/Downloads/Budget-Planner/BudgetPlanner.Web/BudgetPlanner.Web.csproj",
   "expectedPackageFiles": [
     "/Users/parvizsalomatshoev/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
   ],
