@@ -99,7 +99,6 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Синхронизация цветовых полей
             $('input[type="color"]').on('input', function() {
                 var color = $(this).val();
                 $('input[type="text"][name="Color"]').val(color);
@@ -114,12 +113,10 @@
                 updatePreview();
             });
 
-            // Обновление превью при изменении имени
             $('input[name="Name"]').on('input', function() {
                 updatePreview();
             });
 
-            // Обновление превью при изменении типа
             $('select[name="Type"]').on('change', function() {
                 updatePreview();
             });
@@ -143,7 +140,6 @@
                 $('#typePreview').html(typeHtml);
             }
 
-            // Инициализация превью
             updatePreview();
         });
     </script>

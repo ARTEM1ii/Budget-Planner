@@ -56,7 +56,7 @@
                                     }
                                 </td>
                                 <td>
-                                                                            @if (transaction.Type == TransactionType.Income)
+                                    @if (transaction.Type == TransactionType.Income)
                                     {
                                         <span class="badge bg-success">
                                             <i class="fas fa-arrow-up me-1"></i>Income
@@ -95,12 +95,11 @@
         </div>
     </div>
 
-    <!-- Статистика -->
     <div class="row mt-4">
         <div class="col-md-4">
             <div class="card bg-success text-white">
                 <div class="card-body text-center">
-                                        <h4>Total Income</h4>
+                    <h4>Total Income</h4>
                     <h2>€@Model.Where(t => t.Type == TransactionType.Income).Sum(t => t.Amount).ToString("N0")</h2>
                 </div>
             </div>
@@ -108,7 +107,7 @@
         <div class="col-md-4">
             <div class="card bg-danger text-white">
                 <div class="card-body text-center">
-                                        <h4>Total Expenses</h4>
+                    <h4>Total Expenses</h4>
                     <h2>€@Model.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount).ToString("N0")</h2>
                 </div>
             </div>
@@ -118,8 +117,8 @@
                 <div class="card-body text-center">
                     <h4>Balance</h4>
                     @{
-                                                 var balance = Model.Where(t => t.Type == TransactionType.Income).Sum(t => t.Amount) -
-                                      Model.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount);
+                        var balance = Model.Where(t => t.Type == TransactionType.Income).Sum(t => t.Amount) -
+                                     Model.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount);
                     }
                     <h2>€@balance.ToString("N0")</h2>
                 </div>

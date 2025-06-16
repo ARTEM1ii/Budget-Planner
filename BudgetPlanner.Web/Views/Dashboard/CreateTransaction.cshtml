@@ -102,7 +102,6 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Установить текущую дату и время
             var now = new Date();
             var year = now.getFullYear();
             var month = String(now.getMonth() + 1).padStart(2, '0');
@@ -121,7 +120,6 @@
             if (typeSelect.value) {
                 var selectedType = parseInt(typeSelect.value);
                 
-                // Скрыть/показать категории в зависимости от типа
                 $('#categorySelect option').each(function() {
                     var categoryType = $(this).data('type');
                     if (categoryType !== undefined) {
@@ -133,18 +131,15 @@
                     }
                 });
                 
-                // Сбросить выбор категории если она не подходит
                 var selectedCategory = $('#categorySelect option:selected');
                 if (selectedCategory.data('type') !== undefined && selectedCategory.data('type') !== selectedType) {
                     categorySelect.value = '';
                 }
             } else {
-                // Показать все категории если тип не выбран
                 $('#categorySelect option').show();
             }
         }
 
-        // Обновить категории при изменении типа
         $('#Type').change(updateTypeIcon);
     </script>
 } 

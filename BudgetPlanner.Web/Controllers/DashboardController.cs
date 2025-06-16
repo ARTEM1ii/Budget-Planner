@@ -71,7 +71,7 @@ public class DashboardController : Controller
         
         if (success)
         {
-            TempData["SuccessMessage"] = "Транзакция успешно создана";
+            TempData["SuccessMessage"] = "Transaction created successfully";
             return RedirectToAction("Transactions");
         }
 
@@ -142,7 +142,6 @@ public class DashboardController : Controller
         return View("CreateTransaction", model);
     }
 
-    // Categories management
     public async Task<IActionResult> Categories()
     {
         if (!_apiService.IsAuthenticated)
@@ -248,28 +247,6 @@ public class DashboardController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteCategory(int id)
-    {
-        if (!_apiService.IsAuthenticated)
-        {
-            return RedirectToAction("Login", "Auth");
-        }
-
-        var success = await _apiService.DeleteCategoryAsync(id);
-        
-        if (success)
-        {
-            TempData["SuccessMessage"] = "Category deleted successfully";
-        }
-        else
-        {
-            TempData["ErrorMessage"] = "Error deleting category. It may have associated transactions.";
-        }
-
-        return RedirectToAction("Categories");
-    }
-
-    [HttpPost]
     public async Task<IActionResult> DeleteTransaction(int id)
     {
         if (!_apiService.IsAuthenticated)
@@ -289,5 +266,27 @@ public class DashboardController : Controller
         }
 
         return RedirectToAction("Transactions");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteCategory(int id)
+    {
+        if (!_apiService.IsAuthenticated)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+
+        var success = await _apiService.DeleteCategoryAsync(id);
+        
+        if (success)
+        {
+            TempData["SuccessMessage"] = "Category deleted successfully";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "Error deleting category";
+        }
+
+        return RedirectToAction("Categories");
     }
 } 

@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BudgetPlanner.Web.Models;
 
-// Auth Models
 public class LoginViewModel
 {
     public string Username { get; set; } = string.Empty;
@@ -19,7 +18,6 @@ public class RegisterViewModel
     public string? ErrorMessage { get; set; }
 }
 
-// Transaction Models
 public class TransactionViewModel
 {
     public int Id { get; set; }
@@ -51,7 +49,6 @@ public class CreateTransactionViewModel
     public string? ErrorMessage { get; set; }
 }
 
-// Category Models
 public class CategoryViewModel
 {
     public int Id { get; set; }
@@ -60,7 +57,6 @@ public class CategoryViewModel
     public TransactionType Type { get; set; }
 }
 
-// Dashboard Models
 public class DashboardViewModel
 {
     public decimal TotalIncome { get; set; }
@@ -92,14 +88,12 @@ public class CreateCategoryViewModel
     public string? ErrorMessage { get; set; }
 }
 
-// Enums
 public enum TransactionType
 {
     Income = 1,
     Expense = 2
 }
 
-// API Response Models
 public class AuthResponse
 {
     public string Token { get; set; } = string.Empty;

@@ -129,7 +129,6 @@ public class ApiService : IApiService
             
             if (summary != null)
             {
-                // Получаем последние транзакции
                 summary.RecentTransactions = (await GetTransactionsAsync()).Take(5).ToList();
                 return summary;
             }
@@ -271,8 +270,7 @@ public class ApiService : IApiService
         var token = GetAuthToken();
         if (!string.IsNullOrEmpty(token))
         {
-            _httpClient.DefaultRequestHeaders.Authorization = 
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
         }
     }
 } 
