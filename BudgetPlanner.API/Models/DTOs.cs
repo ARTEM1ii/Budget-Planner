@@ -1,6 +1,5 @@
 namespace BudgetPlanner.API.Models;
 
-// Auth DTOs
 public class LoginRequest
 {
     public string Username { get; set; } = string.Empty;
@@ -20,7 +19,6 @@ public class AuthResponse
     public UserDto User { get; set; } = new();
 }
 
-// User DTOs
 public class UserDto
 {
     public int Id { get; set; }
@@ -30,7 +28,6 @@ public class UserDto
     public DateTime CreatedAt { get; set; }
 }
 
-// Category DTOs
 public class CategoryDto
 {
     public int Id { get; set; }
@@ -46,7 +43,6 @@ public class CreateCategoryRequest
     public TransactionType Type { get; set; }
 }
 
-// Transaction DTOs
 public class TransactionDto
 {
     public int Id { get; set; }
@@ -66,7 +62,6 @@ public class CreateTransactionRequest
     public int? CategoryId { get; set; }
 }
 
-// Report DTOs
 public class BudgetSummaryDto
 {
     public decimal TotalIncome { get; set; }

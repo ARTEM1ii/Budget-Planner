@@ -7,14 +7,12 @@ using BudgetPlanner.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<BudgetContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") 
         ?? "Data Source=budget.db"));
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "YourSecretKeyHere123456789";
 builder.Services.AddAuthentication(options =>
 {
@@ -37,7 +35,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -51,14 +48,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Ensure database is created
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<BudgetContext>();
     context.Database.EnsureCreated();
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

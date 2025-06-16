@@ -8,7 +8,6 @@ public class Category
     public TransactionType Type { get; set; }
     public int UserId { get; set; }
     
-    // Navigation properties
     public User User { get; set; } = null!;
     public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 } 

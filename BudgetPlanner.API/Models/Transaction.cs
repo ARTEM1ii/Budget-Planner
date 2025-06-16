@@ -10,7 +10,6 @@ public class Transaction
     public int UserId { get; set; }
     public int? CategoryId { get; set; }
     
-    // Navigation properties
     public User User { get; set; } = null!;
     public Category? Category { get; set; }
 }
