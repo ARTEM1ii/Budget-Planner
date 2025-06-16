@@ -53,7 +53,6 @@ public class AuthService : IAuthService
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        // Создаем базовые категории для нового пользователя
         await CreateDefaultCategoriesAsync(user.Id);
 
         return user;
@@ -90,10 +89,10 @@ public class AuthService : IAuthService
     {
         var defaultCategories = new List<Category>
         {
-            new() { Name = "Зарплата", Color = "#28a745", Type = TransactionType.Income, UserId = userId },
-            new() { Name = "Продукты", Color = "#dc3545", Type = TransactionType.Expense, UserId = userId },
-            new() { Name = "Транспорт", Color = "#ffc107", Type = TransactionType.Expense, UserId = userId },
-            new() { Name = "Развлечения", Color = "#17a2b8", Type = TransactionType.Expense, UserId = userId }
+            new() { Name = "Salary", Color = "#28a745", Type = TransactionType.Income, UserId = userId },
+            new() { Name = "Groceries", Color = "#dc3545", Type = TransactionType.Expense, UserId = userId },
+            new() { Name = "Transport", Color = "#ffc107", Type = TransactionType.Expense, UserId = userId },
+            new() { Name = "Entertainment", Color = "#17a2b8", Type = TransactionType.Expense, UserId = userId }
         };
 
         _context.Categories.AddRange(defaultCategories);

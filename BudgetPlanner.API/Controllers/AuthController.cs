@@ -78,7 +78,6 @@ public class AuthController : ControllerBase
 
     private static int GetUserIdFromToken(string token)
     {
-        // Simplified - in real app would decode JWT
-        return 1; // For now return default
+        return 1;
     }
 } 

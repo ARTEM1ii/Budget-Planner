@@ -111,7 +111,6 @@ public class CategoriesController : ControllerBase
         if (category == null)
             return NotFound();
 
-        // Check if category has transactions
         var hasTransactions = await _context.Transactions
             .AnyAsync(t => t.CategoryId == id);
 
